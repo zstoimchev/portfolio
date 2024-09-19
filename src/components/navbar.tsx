@@ -7,7 +7,7 @@ export default function Navbar() {
     return (
         <nav className="bg-gray-800 p-4 absolute w-full z-10 content font-[family-name:var(--font-vt323-regular)]">
             <div className="container mx-auto flex justify-between items-center relative">
-                <div className="text-white text-2xl font-normal">Zhivko Stoimchev</div>
+                <Link className="text-white text-2xl font-normal" href="/">Zhivko Stoimchev</Link>
                 <div className="block lg:hidden">
                     <button
                         onClick={() => setIsOpen(!isOpen)}
