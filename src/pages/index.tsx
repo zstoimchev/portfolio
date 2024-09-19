@@ -14,3 +14,13 @@ export default function Home() {
         </div>
     );
 }
+
+// export default function Home() {
+//     return (
+//         <div className="flex flex-col gap-8 items-center sm:items-start p-8 pb-20 sm:p-20 font-[family-name:var(--font-vt323-regular)]">
+//             <h1 className="text-7xl">{" Zhivko Stoimchev "}</h1>
+//             <h1 className="text-7xl">{" Zhivko Stoimchev "}</h1>
+//             <h1 className="text-7xl">{" Zhivko Stoimchev "}</h1>
+//         </div>
+//     );
+// }
