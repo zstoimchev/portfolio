@@ -1,4 +1,5 @@
 import Navbar from './navbar'
+import Footer from './footer'
 import {Fragment, ReactNode} from "react";
 
 interface LayoutProps {
@@ -10,6 +11,7 @@ export default function Layout({ children } : LayoutProps) {
         <Fragment>
             <Navbar/>
             <div>{children}</div>
+            <Footer/>
         </Fragment>
     )
 }
