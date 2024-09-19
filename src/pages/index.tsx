@@ -5,14 +5,11 @@ export default function Home() {
         >
             <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
 
-                <h1>hemlo</h1>
-                <h1>hemlo</h1>
-                <h1>hemlo</h1>
-                <h1>hemlo</h1>
-                <h1>hemlo</h1>
-                <h1>hemlo</h1>
-                <h1>hemlo</h1>
-                <h1>hemlo</h1>
+
+                <h1 className="text-7xl">&#123;&quot; Zhivko Stoimchev &quot;&#125;</h1>
+                <h1 className="text-7xl">&#123;&quot; Zhivko Stoimchev &quot;&#125;</h1>
+                <h1 className="text-7xl">&#123;&quot; Zhivko Stoimchev &quot;&#125;</h1>
+
             </main>
         </div>
     );
