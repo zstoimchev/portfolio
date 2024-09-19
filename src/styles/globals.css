@@ -3,25 +3,56 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --background: #212121;
+    --foreground: #ededed;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    :root {
+        --background: #212121;
+        --foreground: #ededed;
+    }
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+    color: var(--foreground);
+    background: var(--background);
+    font-family: Arial, Helvetica, sans-serif;
+
+    background-image: url("/background-nvim-numbering.png");
+    background-position: top left;
+    background-repeat: no-repeat;
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+    .text-balance {
+        text-wrap: balance;
+    }
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    left: 4%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: #3c3c3c;
+}
+
+.content {
+    margin-left: 4%;
+    width: 96%;
+    height: 100%;
+}
+
+@media (max-width: 950px) {
+    body::before {
+        left: 38px;
+    }
+
+    .content {
+        margin-left: 38px;
+        width: calc(100% - 38px);
+    }
 }
