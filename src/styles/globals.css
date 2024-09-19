@@ -22,6 +22,7 @@ body {
     background-image: url("/background-nvim-numbering.png");
     background-position: top left;
     background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 @layer utilities {
@@ -32,7 +33,7 @@ body {
 
 body::before {
     content: '';
-    position: absolute;
+    position: fixed;
     left: 4%;
     top: 0;
     bottom: 0;
@@ -41,9 +42,8 @@ body::before {
 }
 
 .content {
-    margin-left: 4%;
-    width: 96%;
-    height: 100%;
+    margin-left: calc(4% + 1px);
+    width: calc(96% - 1px);
 }
 
 @media (max-width: 950px) {
@@ -52,7 +52,7 @@ body::before {
     }
 
     .content {
-        margin-left: 38px;
+        margin-left: 39px;
         width: calc(100% - 38px);
     }
 }

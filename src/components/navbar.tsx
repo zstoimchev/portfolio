@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import Link from "next/link";
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <nav className="bg-gray-800 p-4 content">
+        <nav className="bg-gray-800 p-4 absolute w-full z-10 content font-[family-name:var(--font-vt323-regular)]">
             <div className="container mx-auto flex justify-between items-center relative">
-                <div className="text-white text-lg font-bold">Zhivko Stoimchev</div>
+                <div className="text-white text-2xl font-normal">Zhivko Stoimchev</div>
                 <div className="block lg:hidden">
                     <button
                         onClick={() => setIsOpen(!isOpen)}
@@ -29,14 +29,25 @@ export default function Navbar() {
                         </svg>
                     </button>
                 </div>
-                <div className={`absolute top-16 right-0 w-full bg-gray-800 lg:static lg:flex lg:items-center lg:w-auto ${isOpen ? 'block' : 'hidden'}`}>
+                <div
+                    className={`absolute top-16 right-0 w-full bg-gray-800 lg:static lg:flex lg:items-center lg:w-auto ${isOpen ? 'block' : 'hidden'}`}>
                     <ul className="lg:flex lg:space-x-4 text-white">
-                        <Link className="block lg:inline-block px-4 py-2" href={`/`}>_home</Link>
-                        <Link className="block lg:inline-block px-4 py-2" href={`/about`}>_about</Link>
-                        <Link className="block lg:inline-block px-4 py-2" href={`/portfolio`}>_portfolio</Link>
-                        <Link className="block lg:inline-block px-4 py-2" href={`/services`}>_services</Link>
-                        <Link className="block lg:inline-block px-4 py-2" href={`/resume`}>_resume</Link>
-                        <Link className="block lg:inline-block px-4 py-2" href={`/contact`}>_contact</Link>
+                        <Link className="block lg:inline-block px-4 py-2 text-xl text-amber-200" href={`/`}>_home</Link>
+                        <hr/>
+                        <Link className="block lg:inline-block px-4 py-2 text-xl text-amber-200"
+                              href={`/about`}>_about</Link>
+                        <hr/>
+                        <Link className="block lg:inline-block px-4 py-2 text-xl text-amber-200"
+                              href={`/portfolio`}>_portfolio</Link>
+                        <hr/>
+                        <Link className="block lg:inline-block px-4 py-2 text-xl text-amber-200"
+                              href={`/services`}>_services</Link>
+                        <hr/>
+                        <Link className="block lg:inline-block px-4 py-2 text-xl text-amber-200"
+                              href={`/resume`}>_resume</Link>
+                        <hr/>
+                        <Link className="block lg:inline-block px-4 py-2 text-xl text-amber-200"
+                              href={`/contact`}>_contact</Link>
                     </ul>
                 </div>
             </div>
