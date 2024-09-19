@@ -32,7 +32,8 @@ export default function Navbar() {
                 <div
                     className={`absolute top-16 right-0 w-full bg-gray-800 lg:static lg:flex lg:items-center lg:w-auto ${isOpen ? 'block' : 'hidden'}`}>
                     <ul className="lg:flex lg:space-x-4 text-white">
-                        <Link className="block lg:inline-block px-4 py-2 text-xl text-amber-200" href={`/`}>_home</Link>
+                        <Link className="block lg:inline-block px-4 py-2 text-xl text-amber-200"
+                              href={`/`}>_home</Link>
                         <hr/>
                         <Link className="block lg:inline-block px-4 py-2 text-xl text-amber-200"
                               href={`/about`}>_about</Link>
