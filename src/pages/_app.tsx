@@ -1,5 +1,4 @@
 import "@/styles/globals.css";
-import "@/styles/nav.css";
 import type {AppProps} from "next/app";
 import Layout from "@/components/layout";
 import localFont from "next/font/local";

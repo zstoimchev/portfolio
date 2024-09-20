@@ -11,7 +11,7 @@ export default function Layout({ children }: LayoutProps) {
         <Fragment>
             <Navbar />
             <div className="flex flex-col min-h-screen">
-                <main className="flex-grow">
+                <main className="flex-grow content">
                     {children}
                 </main>
                 <Footer />
