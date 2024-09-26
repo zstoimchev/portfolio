@@ -57,3 +57,12 @@ body::before {
     }
 }
 
+.name-title{
+    /*text-8xl*/
+    font-size: vw;
+}
+
+.role-title{
+    /*text-6xl*/
+    font-size: 5vw;
+}

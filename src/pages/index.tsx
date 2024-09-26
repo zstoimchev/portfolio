@@ -43,12 +43,12 @@ export default function Home() {
             <div className="gap-0 items-center flex flex-col">
                 <p>&#47;&#47; Hello friend, glad you are here! My name is</p>
                 {/*<h1 className="text-8xl">&#123;&quot; Zhivko Stoimchev &quot;&#125;</h1>*/}
-                <h1 className="text-8xl">&lt; Zhivko Stoimchev &gt;</h1>
+                <h1 className="text-8xl name-title">&lt; Zhivko Stoimchev &gt;</h1>
             </div>
 
             <div className="gap-0 items-center flex flex-col">
                 <p>&#47;&#47; I am working as</p>
-                <h1 className="text-6xl">&#123;&quot; _{displayText} &quot;&#125;</h1>
+                <h1 className="text-6xl role-title">&#123;&quot; _{displayText} &quot;&#125;</h1>
             </div>
 
         </div>
