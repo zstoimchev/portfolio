@@ -59,10 +59,14 @@ body::before {
 
 .name-title{
     /*text-8xl*/
-    font-size: vw;
+    font-size: 7vw;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .role-title{
     /*text-6xl*/
     font-size: 5vw;
+    white-space: nowrap;
+    overflow: hidden;
 }
