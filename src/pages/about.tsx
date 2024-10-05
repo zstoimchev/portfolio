@@ -2,7 +2,7 @@ export default function About() {
     return (
         <div
             className="flex flex-col mt-10 gap-10 items-center sm:items-center p-8 pb-20 sm:p-20 font-[family-name:var(--font-vt323-regular)]">
-            <h1 className="text-5xl">&lt; About me &gt;</h1>
+            <h1 className="custom-title-page">&lt; About me &gt;</h1>
 
             <div className="widdd">
                 <div className="pb-5">
@@ -42,6 +42,13 @@ export default function About() {
                     </p>
                 </div>
             </div>
-
+            {/*<div className="background">*/}
+            {/*    <div className="line"></div>*/}
+            {/*    <div className="line"></div>*/}
+            {/*    <div className="line"></div>*/}
+            {/*    <div className="line"></div>*/}
+            {/*    <div className="curve"></div>*/}
+            {/*    <div className="curve"></div>*/}
+            {/*</div>*/}
         </div>)
 }
