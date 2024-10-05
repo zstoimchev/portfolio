@@ -70,3 +70,7 @@ body::before {
     white-space: nowrap;
     overflow: hidden;
 }
+
+.widdd{
+    max-width: 700px;
+}
