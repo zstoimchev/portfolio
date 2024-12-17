@@ -7,7 +7,7 @@ export default function About() {
             <div className="widdd">
                 <div className="pb-5">
                     <h1 className="text-2xl">&gt;_ short introduction</h1>
-                    <p className="text-justify">Hello Human, it's me, Zhivko! My favorite data structure is Bloom
+                    <p className="text-justify">Hello Human, it&apos;s me, Zhivko! My favorite data structure is Bloom
                         Filter, and you? Perfect. Nice
                         to meet you.
                     </p>
@@ -38,7 +38,7 @@ export default function About() {
                     <h1 className="text-2xl">&gt;_ contact and cooperation</h1>
                     <p className="text-justify">Have any questions? Not a problem at all, just send me an email, I tend
                         to respond as soon as I
-                        read it. Enjoy the work I've done so far. Cheers!
+                        read it. Enjoy the work I&apos;ve done so far. Cheers!
                     </p>
                 </div>
             </div>
