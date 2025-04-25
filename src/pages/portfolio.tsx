@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 export default function Portfolio() {
-    const [portfolioItems, setPortfolioItems] = useState([{
+    const [portfolioItems] = useState([{
         title: 'Noteworthy technology acquisitions 2021',
         body: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.',
         image: '../stitch.png',
