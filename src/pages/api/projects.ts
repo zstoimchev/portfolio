@@ -1,24 +1,8 @@
 import type {NextApiRequest, NextApiResponse} from "next";
+import { prisma } from '@/lib/prisma'
+import type { Project as PrismaProject } from '@/generated/prisma/client';
 
-type Project = {
-    name: string;
-    description: string;
-    image: string;
-};
-
-export default function handler(req: NextApiRequest, res: NextApiResponse<Project[]>) {
-    const projects: Project[] = [
-        {
-            name: "Zmix",
-            description: "A simple onion network in Java",
-            image: "/stitch.png"
-        },
-        {
-            name: "Zetra",
-            description: "A simple blockchain in Java",
-            "image": "/stitch.png"
-        },
-    ];
-
-    res.status(200).json(projects);
+export default async function handler(req: NextApiRequest, res: NextApiResponse<PrismaProject[]>) {
+    const allProjects = await prisma.project.findMany()
+    res.status(200).json(allProjects);
 }

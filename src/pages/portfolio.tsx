@@ -18,6 +18,7 @@ export default function Portfolio() {
             .then((data: Project[]) => {
                 setProjects(data);
                 setLoading(false);
+                console.log(data);
             });
     }, []);
 
@@ -32,7 +33,7 @@ export default function Portfolio() {
                 <a href="#">
                     <Image
                         className="rounded-t-lg"
-                        src={item.image}
+                        src={item.image_url}
                         alt={item.name}
                         width={400}
                         height={300}
