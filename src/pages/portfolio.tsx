@@ -1,36 +1,48 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import Image from "next/image";
+
+type Project = {
+    name: string;
+    description: string;
+    image: string;
+};
+
 
 export default function Portfolio() {
-    const [portfolioItems] = useState([{
-        title: 'Noteworthy technology acquisitions 2021',
-        body: 'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.',
-        image: '../stitch.png',
-    }, {
-        title: 'Another cool project',
-        body: 'Description of another cool project.',
-        image: '../stitch.png',
-    }, {
-        title: 'Amazing web application',
-        body: 'Details about an amazing web application.',
-        image: '../stitch.png',
-    }, {
-        title: 'Creative design portfolio',
-        body: 'Showcase of creative design works.',
-        image: '../stitch.png',
-    },]);
+    const [projects, setProjects] = useState<Project[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetch("/api/projects")
+            .then((res) => res.json())
+            .then((data: Project[]) => {
+                setProjects(data);
+                setLoading(false);
+            });
+    }, []);
+
+    if (loading) return <p>Loading...</p>;
 
     return (<div
         className="flex flex-col mt-10 gap-10 items-center sm:items-center p-8 pb-20 sm:p-20 font-[family-name:var(--font-vt323-regular)]">
         <h1 className="custom-title-page">&lt; Portfolio &gt;</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"> {portfolioItems.map((item, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"> {projects.map((item, index) => (
             <div key={index}
                  className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <a href="#"> <img className="rounded-t-lg" src={item.image} alt=""/> </a>
+                <a href="#">
+                    <Image
+                        className="rounded-t-lg"
+                        src={item.image}
+                        alt={item.name}
+                        width={400}
+                        height={300}
+                    />
+                </a>
                 <div className="p-5">
                     <a href="#">
-                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{item.title}</h5>
+                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{item.name}</h5>
                     </a>
-                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{item.body}</p>
+                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{item.description}</p>
                     <a href="#"
                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Read more

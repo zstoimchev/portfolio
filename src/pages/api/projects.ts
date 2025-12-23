@@ -3,6 +3,7 @@ import type {NextApiRequest, NextApiResponse} from "next";
 type Project = {
     name: string;
     description: string;
+    image: string;
 };
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Project[]>) {
@@ -10,10 +11,12 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Projec
         {
             name: "Zmix",
             description: "A simple onion network in Java",
+            image: "/stitch.png"
         },
         {
             name: "Zetra",
             description: "A simple blockchain in Java",
+            "image": "/stitch.png"
         },
     ];
 
