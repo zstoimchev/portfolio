@@ -1,21 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import Image from "next/image";
-
-type Project = {
-    name: string;
-    description: string;
-    image: string;
-};
-
+import type { Project as PrismaProject } from '@/generated/prisma/client';
 
 export default function Portfolio() {
-    const [projects, setProjects] = useState<Project[]>([]);
+    const [projects, setProjects] = useState<PrismaProject[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetch("/api/projects")
             .then((res) => res.json())
-            .then((data: Project[]) => {
+            .then((data: PrismaProject[]) => {
                 setProjects(data);
                 setLoading(false);
                 console.log(data);
