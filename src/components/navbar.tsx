@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
-
+/*
     const handleDownload = async () => {
         const response = await fetch('https://raw.githubusercontent.com/zstoimchev/cv-latest/main/Zhivko_Stoimchev_CV.pdf');
         if (!response.ok) {
@@ -18,7 +18,7 @@ export default function Navbar() {
         a.click();
         a.remove();
     };
-
+*/
 
     return (
         <nav className="bg-gray-800 p-4 absolute w-full z-10 content font-[family-name:var(--font-vt323-regular)]">
@@ -60,10 +60,17 @@ export default function Navbar() {
                         <Link className="block lg:inline-block hover:text-navColorHover px-4 py-2 text-xl text-navColor"
                               href={`/services`}>_services</Link>
                         <hr/>
-                        <button
+                        <a
+                            href="/cv.pdf"
+                            download="Zhivko_Stoimchev_CV.pdf"
                             className="block lg:inline-block hover:text-navColorHover px-4 py-2 text-xl text-navColor"
-                            onClick={handleDownload}>_resume
-                        </button>
+                        >
+                            _resume
+                        </a>
+                        {/*<button*/}
+                        {/*    className="block lg:inline-block hover:text-navColorHover px-4 py-2 text-xl text-navColor"*/}
+                        {/*    onClick={handleDownload}>_resume*/}
+                        {/*</button>*/}
                         <hr/>
                         <Link className="block lg:inline-block hover:text-navColorHover px-4 py-2 text-xl text-navColor"
                               href={`/contact`}>_contact</Link>
