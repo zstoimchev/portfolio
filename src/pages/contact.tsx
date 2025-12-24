@@ -1,6 +1,33 @@
 import Image from "next/image";
+import React, { useState } from "react";
 
-export default function About() {
+export default function Contact() {
+    const [form, setForm] = useState({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+    });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async () => {
+        const res = await fetch("/api/contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(form),
+        });
+
+        if (res.ok) {
+            alert("Message sent!");
+            setForm({ name: "", email: "", subject: "", message: "" });
+        } else {
+            alert("Failed to send message");
+        }
+    };
+
     return (
         <div
             className="content flex flex-col mt-20 items-center sm:items-center sm:p-20 font-[family-name:var(--font-vt323-regular)]">
@@ -45,17 +72,49 @@ export default function About() {
                 </div>
 
                 <form className="ml-auto space-y-4">
-                    <input type='text' placeholder='Name'
-                           className="w-full rounded-md py-3 px-4 bg-gray-800 text-sm outline-blue-500 focus:bg-transparent"/>
-                    <input type='email' placeholder='Email'
-                           className="w-full rounded-md py-3 px-4 bg-gray-800 text-sm outline-blue-500 focus:bg-transparent"/>
-                    <input type='text' placeholder='Subject'
-                           className="w-full rounded-md py-3 px-4 bg-gray-800 text-sm outline-blue-500 focus:bg-transparent"/>
-                    <textarea placeholder='Message' rows={6}
-                              className="w-full rounded-md px-4 bg-gray-800 text-sm pt-3 outline-blue-500 focus:bg-transparent"></textarea>
-                    <button type='button'
-                            className="text-white bg-blue-500 hover:bg-blue-600 tracking-wide rounded-md text-sm px-4 py-3 w-full !mt-6">Send
+
+                    <input
+                        type='text'
+                        placeholder='Name'
+                        name="name"
+                        value={form.name}
+                        onChange={handleChange}
+                        className="w-full rounded-md py-3 px-4 bg-gray-800 text-sm outline-blue-500 focus:bg-transparent"
+                    />
+
+                    <input
+                        type='email'
+                        placeholder='Email'
+                        name="email"
+                        value={form.email}
+                        onChange={handleChange}
+                        className="w-full rounded-md py-3 px-4 bg-gray-800 text-sm outline-blue-500 focus:bg-transparent"
+                    />
+
+                    <input type='text'
+                           placeholder='Subject'
+                           name="subject"
+                           value={form.subject}
+                           onChange={handleChange}
+                           className="w-full rounded-md py-3 px-4 bg-gray-800 text-sm outline-blue-500 focus:bg-transparent"
+                    />
+
+                    <textarea
+                        placeholder='Message'
+                        rows={6} name="message"
+                        value={form.message}
+                        onChange={handleChange}
+                        className="w-full rounded-md px-4 bg-gray-800 text-sm pt-3 outline-blue-500 focus:bg-transparent"
+                    />
+
+                    <button
+                        type='button'
+                        onClick={handleSubmit}
+                        className="text-white bg-blue-500 hover:bg-blue-600 tracking-wide rounded-md text-sm px-4 py-3 w-full !mt-6"
+                    >
+                        Send
                     </button>
+
                 </form>
             </div>
 

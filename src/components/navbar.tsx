@@ -3,22 +3,6 @@ import Link from "next/link";
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
-/*
-    const handleDownload = async () => {
-        const response = await fetch('https://raw.githubusercontent.com/zstoimchev/cv-latest/main/Zhivko_Stoimchev_CV.pdf');
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'Zhivko_Stoimchev_CV.pdf';
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-    };
-*/
 
     return (
         <nav className="bg-gray-800 p-4 absolute w-full z-10 content font-[family-name:var(--font-vt323-regular)]">
@@ -58,19 +42,15 @@ export default function Navbar() {
                               href={`/portfolio`}>_portfolio</Link>
                         <hr/>
                         <Link className="block lg:inline-block hover:text-navColorHover px-4 py-2 text-xl text-navColor"
-                              href={`/services`}>_services</Link>
+                              href={`/blog`}>_blog</Link>
                         <hr/>
                         <a
-                            href="/cv.pdf"
+                            href="https://github.com/zstoimchev/portfolio/releases/download/latest/cv.pdf"
                             download="Zhivko_Stoimchev_CV.pdf"
                             className="block lg:inline-block hover:text-navColorHover px-4 py-2 text-xl text-navColor"
                         >
                             _resume
                         </a>
-                        {/*<button*/}
-                        {/*    className="block lg:inline-block hover:text-navColorHover px-4 py-2 text-xl text-navColor"*/}
-                        {/*    onClick={handleDownload}>_resume*/}
-                        {/*</button>*/}
                         <hr/>
                         <Link className="block lg:inline-block hover:text-navColorHover px-4 py-2 text-xl text-navColor"
                               href={`/contact`}>_contact</Link>
