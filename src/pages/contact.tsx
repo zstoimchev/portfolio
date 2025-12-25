@@ -58,21 +58,21 @@ export default function Contact() {
                     <p className="text-sm text-gray-500 mt-4">Have some idea to develop and need help? Then
                         reach out, I am always more than happy to help.</p>
 
-                    {/*<div className="mt-12">*/}
-                    {/*    <h2 className="text-gray-400 text-base font-bold">Email</h2>*/}
-                    {/*    <ul className="mt-4">*/}
-                    {/*        <li className="flex items-center">*/}
-                    {/*            <li className="h-10 w-10 rounded-full flex items-center justify-center shrink-0">*/}
-                    {/*                <a href="https://github.com/zstoimchev" target="_blank" rel="noopener noreferrer">*/}
-                    {/*                    <Image src="../../mail-logo.svg" alt="Mail logo" width={25} height={25}/>*/}
-                    {/*                </a>*/}
-                    {/*            </li>*/}
-                    {/*            <a href="mailto:zstoimchev@outlook.com" className="text-[#007bff] text-sm ml-4">*/}
-                    {/*                <strong>info@zstoimchev.com</strong>*/}
-                    {/*            </a>*/}
-                    {/*        </li>*/}
-                    {/*    </ul>*/}
-                    {/*</div>*/}
+                    <div className="mt-12">
+                        <h2 className="text-gray-400 text-base font-bold">Email</h2>
+                        <ul className="mt-4">
+                            <li className="flex items-center">
+                                <div className="h-10 w-10 rounded-full flex items-center justify-center shrink-0">
+                                    <a href="https://github.com/zstoimchev" target="_blank" rel="noopener noreferrer">
+                                        <Image src="../../mail-logo.svg" alt="Mail logo" width={25} height={25}/>
+                                    </a>
+                                </div>
+                                <a href="mailto:zstoimchev@gmail.com" className="text-[#007bff] text-sm ml-4">
+                                    <strong>zstoimchev@gmail.com</strong>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
 
                     <div className="mt-12">
                         <h2 className="text-gray-400 text-base font-bold">Socials</h2>
