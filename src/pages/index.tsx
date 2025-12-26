@@ -5,6 +5,28 @@ const roles = ["developer",
     "system administrator",
     "junior network associate"];
 
+function TerminalLine({text, delay = 0, blinking = false}: {
+    text: string;
+    delay?: number;
+    blinking?: boolean;
+}) {
+    const [visible, setVisible] = useState(false);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setVisible(true), delay);
+        return () => clearTimeout(timer);
+    }, [delay]);
+
+    if (!visible) return null;
+
+    return (
+        <p>
+            &gt; {text}
+            {blinking && <span className="animate-pulse"> ▌</span>}
+        </p>
+    );
+}
+
 export default function Home() {
 
     const [displayText, setDisplayText] = useState('');
@@ -50,6 +72,19 @@ export default function Home() {
                 <p>&#47;&#47; I am working as</p>
                 <h1 className="text-6xl role-title">&#123;&quot; _{displayText} &quot;&#125;</h1>
             </div>
+
+            <div className="w-full max-w-3xl mt-10 border border-gray-700 rounded-md bg-black text-green-400 p-6 text-xl">
+                <p className="text-gray-500">// system boot sequence</p>
+
+                <div className="mt-4 space-y-2">
+                    <TerminalLine text="initializing full-stack environment..." delay={500} />
+                    <TerminalLine text="loading Next.js modules" delay={1200} />
+                    <TerminalLine text="connecting to PostgreSQL via Prisma" delay={2000} />
+                    <TerminalLine text="deploying infrastructure on Vercel" delay={2800} />
+                    <TerminalLine text="status: online" delay={3600} blinking />
+                </div>
+            </div>
+
 
         </div>
     );
