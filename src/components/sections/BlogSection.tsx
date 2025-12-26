@@ -2,7 +2,7 @@ interface BlogProps {
     visible: boolean;
 }
 
-export default function Blog({ visible }: BlogProps) {
+export default function Blog({visible}: BlogProps) {
     return (
         <section
             id="blog"
@@ -17,7 +17,7 @@ export default function Blog({ visible }: BlogProps) {
 
                 <p className="text-gray-500 text-xl leading-relaxed">
                     {'//'} Coming soon... Stay tuned for insights on system architecture,
-                    <br />
+                    <br/>
                     security practices, and homelab adventures.
                 </p>
             </div>

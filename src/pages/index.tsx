@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-
 import Hero from '@/components/sections/HeroSection';
 import About from '@/components/sections/AboutSection';
 import Portfolio from '@/components/sections/PortfolioSection';
@@ -22,7 +21,7 @@ export default function HomePage() {
                     }
                 });
             },
-            { threshold: 0.3 }
+            {threshold: 0.3}
         );
 
         document.querySelectorAll('section[id]').forEach(section =>
@@ -33,20 +32,20 @@ export default function HomePage() {
     }, []);
 
     const scrollToSection = (id: string) => {
-        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById(id)?.scrollIntoView({behavior: 'smooth'});
     };
 
     return (
         <div className="bg-gray-950 text-gray-100">
-            <Navigation activeSection={activeSection} onNavigate={scrollToSection} />
+            <Navigation activeSection={activeSection} onNavigate={scrollToSection}/>
 
-            <Hero visible={visibleSections.has('home')} onNavigate={scrollToSection} />
-            <About visible={visibleSections.has('about')} />
-            <Portfolio visible={visibleSections.has('portfolio')} />
-            <Blog visible={visibleSections.has('blog')} />
-            <Contact visible={visibleSections.has('contact')} />
+            <Hero visible={visibleSections.has('home')} onNavigate={scrollToSection}/>
+            <About visible={visibleSections.has('about')}/>
+            <Portfolio visible={visibleSections.has('portfolio')}/>
+            <Blog visible={visibleSections.has('blog')}/>
+            <Contact visible={visibleSections.has('contact')}/>
 
-            <Footer />
+            <Footer/>
         </div>
     );
 }

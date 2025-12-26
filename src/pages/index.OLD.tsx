@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { ChevronDown, Github, Linkedin, Mail, Download, Menu, X } from 'lucide-react';
+import React, {useState, useEffect} from 'react';
+import {ChevronDown, Github, Linkedin, Mail, Download, Menu, X} from 'lucide-react';
 
 interface Project {
     id: number;
@@ -41,7 +41,7 @@ const Portfolio = () => {
                     }
                 });
             },
-            { threshold: 0.3 }
+            {threshold: 0.3}
         );
 
         document.querySelectorAll('section[id]').forEach(section => {
@@ -52,7 +52,7 @@ const Portfolio = () => {
     }, []);
 
     const scrollToSection = (id: string) => {
-        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById(id)?.scrollIntoView({behavior: 'smooth'});
         setIsMenuOpen(false);
     };
 
@@ -93,7 +93,7 @@ const Portfolio = () => {
                         className="md:hidden text-gray-400"
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                     >
-                        {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                        {isMenuOpen ? <X size={24}/> : <Menu size={24}/>}
                     </button>
                 </div>
 
@@ -144,8 +144,9 @@ const Portfolio = () => {
                         >
                             Get in Touch
                         </button>
-                        <button className="px-8 py-3 border border-emerald-600 hover:bg-emerald-600/10 rounded-lg transition-colors">
-                            <Download size={20} className="inline mr-2" />
+                        <button
+                            className="px-8 py-3 border border-emerald-600 hover:bg-emerald-600/10 rounded-lg transition-colors">
+                            <Download size={20} className="inline mr-2"/>
                             Resume
                         </button>
                     </div>
@@ -155,7 +156,7 @@ const Portfolio = () => {
                     onClick={() => scrollToSection('about')}
                     className="absolute bottom-10 animate-bounce text-emerald-400"
                 >
-                    <ChevronDown size={32} />
+                    <ChevronDown size={32}/>
                 </button>
             </section>
 
@@ -232,7 +233,8 @@ const Portfolio = () => {
 
                     {projectsLoading ? (
                         <div className="text-center text-gray-400">
-                            <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-400 mb-4"></div>
+                            <div
+                                className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-400 mb-4"></div>
                             <p>Loading projects...</p>
                         </div>
                     ) : projects.length === 0 ? (
@@ -254,7 +256,8 @@ const Portfolio = () => {
                                                 className="w-full h-full object-cover"
                                             />
                                         ) : (
-                                            <div className="w-full h-full bg-gradient-to-br from-emerald-900/50 to-cyan-900/50 flex items-center justify-center">
+                                            <div
+                                                className="w-full h-full bg-gradient-to-br from-emerald-900/50 to-cyan-900/50 flex items-center justify-center">
                                                 <span className="text-6xl opacity-20">{'</>'}</span>
                                             </div>
                                         )}
@@ -285,7 +288,7 @@ const Portfolio = () => {
                                                 rel="noopener noreferrer"
                                                 className="text-emerald-400 hover:text-cyan-400 text-sm flex items-center gap-2"
                                             >
-                                                <Github size={16} />
+                                                <Github size={16}/>
                                                 View on GitHub →
                                             </a>
                                         )}
@@ -310,7 +313,7 @@ const Portfolio = () => {
                     </h2>
                     <p className="text-gray-500 text-xl">
                         {'//'} Coming soon... Stay tuned for insights on system architecture,
-                        <br />
+                        <br/>
                         security practices, and homelab adventures.
                     </p>
                 </div>
@@ -343,21 +346,21 @@ const Portfolio = () => {
                                     href="mailto:zstoimchev@outlook.com"
                                     className="flex items-center gap-3 text-gray-400 hover:text-emerald-400 transition-colors"
                                 >
-                                    <Mail size={20} />
+                                    <Mail size={20}/>
                                     zstoimchev@outlook.com
                                 </a>
                                 <a
                                     href="https://github.com/zstoimchev"
                                     className="flex items-center gap-3 text-gray-400 hover:text-emerald-400 transition-colors"
                                 >
-                                    <Github size={20} />
+                                    <Github size={20}/>
                                     github.com/zstoimchev
                                 </a>
                                 <a
                                     href="https://linkedin.com/in/zstoimchev"
                                     className="flex items-center gap-3 text-gray-400 hover:text-emerald-400 transition-colors"
                                 >
-                                    <Linkedin size={20} />
+                                    <Linkedin size={20}/>
                                     linkedin.com/in/zstoimchev
                                 </a>
                             </div>

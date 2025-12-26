@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import {useState} from 'react';
+import {Menu, X} from 'lucide-react';
 
 interface NavigationProps {
     activeSection: string;
@@ -52,7 +52,7 @@ export default function Navigation({
                     className="md:hidden text-gray-400"
                     onClick={() => setIsMenuOpen(prev => !prev)}
                 >
-                    {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                    {isMenuOpen ? <X size={24}/> : <Menu size={24}/>}
                 </button>
             </div>
 

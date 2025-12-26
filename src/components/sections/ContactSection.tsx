@@ -1,7 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Github, Linkedin, Mail } from 'lucide-react';
+import React, {useState} from 'react';
+import {Mail} from 'lucide-react';
+import GitHub from '@/components/icons/GitHubIcon';
+import LinkedIn from '@/components/icons/LinkedInIcon';
 
 interface ContactProps {
     visible: boolean;
@@ -12,7 +14,7 @@ type CalloutState = {
     message: string;
 } | null;
 
-export default function Contact({ visible }: ContactProps) {
+export default function Contact({visible}: ContactProps) {
     const [form, setForm] = useState({
         name: '',
         email: '',
@@ -26,7 +28,7 @@ export default function Contact({ visible }: ContactProps) {
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
+        setForm({...form, [e.target.name]: e.target.value});
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -37,17 +39,17 @@ export default function Contact({ visible }: ContactProps) {
         try {
             const res = await fetch('/api/contact', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(form),
             });
 
             const data = await res.json();
 
             if (res.ok) {
-                setCallout({ success: true, message: data.message });
-                setForm({ name: '', email: '', subject: '', message: '' });
+                setCallout({success: true, message: data.message});
+                setForm({name: '', email: '', subject: '', message: ''});
             } else {
-                setCallout({ success: false, message: data.message });
+                setCallout({success: false, message: data.message});
             }
         } catch {
             setCallout({
@@ -84,7 +86,7 @@ export default function Contact({ visible }: ContactProps) {
                             href="mailto:zstoimchev@gmail.com"
                             className="flex items-center gap-3 text-gray-400 hover:text-emerald-400 text-xl"
                         >
-                            <Mail size={20} /> zstoimchev@gmail.com
+                            <Mail size={20}/> zstoimchev@gmail.com
                         </a>
 
                         <a
@@ -92,7 +94,7 @@ export default function Contact({ visible }: ContactProps) {
                             target="_blank"
                             className="flex items-center gap-3 text-gray-400 hover:text-emerald-400 text-xl"
                         >
-                            <Github size={20} /> github.com/zstoimchev
+                            <GitHub size={20} className="inline"/> github.com/zstoimchev
                         </a>
 
                         <a
@@ -100,7 +102,7 @@ export default function Contact({ visible }: ContactProps) {
                             target="_blank"
                             className="flex items-center gap-3 text-gray-400 hover:text-emerald-400 text-xl"
                         >
-                            <Linkedin size={20} /> linkedin.com/in/zstoimchev
+                            <LinkedIn size={20} className="inline"/> linkedin.com/in/zstoimchev
                         </a>
                     </div>
 

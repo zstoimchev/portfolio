@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
-import { Github } from 'lucide-react';
+import {useEffect, useState} from 'react';
+import Image from 'next/image';
+import GitHub from '@/components/icons/GitHubIcon';
 
 interface Project {
     id: number;
@@ -14,7 +15,7 @@ interface PortfolioProps {
     visible: boolean;
 }
 
-export default function Portfolio({ visible }: PortfolioProps) {
+export default function Portfolio({visible}: PortfolioProps) {
     const [projects, setProjects] = useState<Project[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -46,7 +47,8 @@ export default function Portfolio({ visible }: PortfolioProps) {
                 {/* Loading */}
                 {loading && (
                     <div className="text-center text-gray-400">
-                        <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-400 mb-4" />
+                        <div
+                            className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-400 mb-4"/>
                         <p>Loading projects...</p>
                     </div>
                 )}
@@ -69,13 +71,17 @@ export default function Portfolio({ visible }: PortfolioProps) {
                                 {/* Image */}
                                 <div className="h-48 bg-gray-800 overflow-hidden">
                                     {project.image_url ? (
-                                        <img
+                                        <Image
                                             src={project.image_url}
                                             alt={project.name}
+                                            width={500}
+                                            height={300}
                                             className="w-full h-full object-cover"
+                                            style={{objectFit: 'cover'}}
                                         />
                                     ) : (
-                                        <div className="w-full h-full bg-gradient-to-br from-emerald-900/50 to-cyan-900/50 flex items-center justify-center">
+                                        <div
+                                            className="w-full h-full bg-gradient-to-br from-emerald-900/50 to-cyan-900/50 flex items-center justify-center">
                                             <span className="text-6xl opacity-20">{'</>'}</span>
                                         </div>
                                     )}
@@ -115,7 +121,7 @@ export default function Portfolio({ visible }: PortfolioProps) {
                                             rel="noopener noreferrer"
                                             className="text-emerald-400 hover:text-cyan-400 text-xl flex items-center gap-2"
                                         >
-                                            <Github size={16} />
+                                            <GitHub size={16} className="inline"/>
                                             View on GitHub →
                                         </a>
                                     )}

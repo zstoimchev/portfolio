@@ -17,7 +17,7 @@ const techStack = [
     'AWS',
 ];
 
-export default function About({ visible }: AboutProps) {
+export default function About({visible}: AboutProps) {
     return (
         <section
             id="about"

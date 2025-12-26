@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { ChevronDown, Download } from 'lucide-react';
+import {useEffect, useState} from 'react';
+import {ChevronDown, Download} from 'lucide-react';
 
 interface HeroProps {
     visible: boolean;
@@ -13,7 +13,7 @@ const roles = [
     'junior network associate',
 ];
 
-export default function Hero({ visible, onNavigate }: HeroProps) {
+export default function Hero({visible, onNavigate}: HeroProps) {
     const [displayText, setDisplayText] = useState('');
     const [index, setIndex] = useState(0);
     const [subIndex, setSubIndex] = useState(0);
@@ -89,7 +89,7 @@ export default function Hero({ visible, onNavigate }: HeroProps) {
                         download="Zhivko-Stoimchev-Resume.pdf"
                         className="px-8 py-3 border border-emerald-600 hover:bg-emerald-600/10 rounded-lg transition-colors inline-flex items-center"
                     >
-                        <Download size={20} className="inline mr-2" />
+                        <Download size={20} className="inline mr-2"/>
                         Resume
                     </a>
                 </div>
@@ -100,7 +100,7 @@ export default function Hero({ visible, onNavigate }: HeroProps) {
                 className="absolute bottom-10 animate-bounce text-emerald-400"
                 aria-label="Scroll to About section"
             >
-                <ChevronDown size={32} />
+                <ChevronDown size={32}/>
             </button>
         </section>
     );
