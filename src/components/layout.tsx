@@ -9,12 +9,12 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
     return (
         <Fragment>
-            <Navbar />
+            {/*<Navbar />*/}
             <div className="flex flex-col min-h-screen">
                 <main className="flex-grow content">
                     {children}
                 </main>
-                <Footer />
+                {/*<Footer />*/}
             </div>
         </Fragment>
     );
