@@ -3,19 +3,37 @@ interface AboutProps {
 }
 
 const techStack = [
-    'React',
-    'Node.js',
-    '.NET',
-    'Python',
+    // Programming languages
+    'C/C++',
+    'C#',
     'Rust',
-    'Docker',
-    'Kubernetes',
+    'Bash',
+    'Java',
+    'JavaScript',
+    'SQL',
+
+    // Web development
+    'React.js',
+    'Express.js',
+    'Spring Boot',
+    '.NET',
+
+    // Operating systems
     'Linux',
-    'MySQL',
-    'Redis',
-    'Git',
-    'AWS',
+    'Windows',
+
+    // Networking & Security
+    'Nmap',
+    'Wireshark',
+
+    // Virtualization & Containers
+    'Proxmox VE',
+    'Docker',
+
+    // Server management
+    'Apache'
 ];
+
 
 export default function About({visible}: AboutProps) {
     return (
