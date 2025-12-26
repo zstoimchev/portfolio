@@ -11,11 +11,11 @@ export default function Blog({visible}: BlogProps) {
             }`}
         >
             <div className="max-w-4xl text-center">
-                <h2 className="text-6xl font-bold mb-8 text-emerald-400">
+                <h2 className="text-4xl md:text-6xl font-bold mb-8 text-emerald-400">
                     {'>'}_blog
                 </h2>
 
-                <p className="text-gray-500 text-xl leading-relaxed">
+                <p className="text-md md:text-xl text-gray-500 leading-relaxed">
                     {'//'} Coming soon... Stay tuned for insights on system architecture,
                     <br/>
                     security practices, and homelab adventures.

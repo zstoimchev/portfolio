@@ -69,22 +69,24 @@ export default function Contact({visible}: ContactProps) {
             }`}
         >
             <div className="max-w-4xl w-full">
-                <h2 className="text-6xl font-bold mb-12 text-emerald-400 text-center">
+                <h2 className="text-4xl md:text-6xl font-bold mb-12 text-emerald-400 text-center">
                     {'>'}_get_in_touch
                 </h2>
 
                 <div className="grid md:grid-cols-2 gap-8">
                     {/* Left */}
                     <div className="space-y-6">
-                        <h3 className="text-3xl mb-4 text-cyan-400">{'//'} Let{"'"}s Connect</h3>
-                        <p className="text-gray-400 mb-6 text-2xl">
+                        <h3 className="text-2xl md:text-3xl mb-4 text-cyan-400">
+                            {'//'} Let{"'"}s Connect
+                        </h3>
+                        <p className="text-md md:text-2xl text-gray-400 mb-6">
                             Want to debate Rust{"'"}s borrow checker versus Java{"'"}s GC? Need help with
                             security configurations? Just appreciate good tech discussions? Let{"'"}s talk!
                         </p>
 
                         <a
                             href="mailto:zstoimchev@gmail.com"
-                            className="flex items-center gap-3 text-gray-400 hover:text-emerald-400 text-xl"
+                            className="text-lg md:text-xl flex items-center gap-3 text-gray-400 hover:text-emerald-400"
                         >
                             <Mail size={20}/> zstoimchev@gmail.com
                         </a>
@@ -92,7 +94,7 @@ export default function Contact({visible}: ContactProps) {
                         <a
                             href="https://github.com/zstoimchev"
                             target="_blank"
-                            className="flex items-center gap-3 text-gray-400 hover:text-emerald-400 text-xl"
+                            className="text-lg md:text-xl flex items-center gap-3 text-gray-400 hover:text-emerald-400"
                         >
                             <GitHub size={20} className="inline"/> github.com/zstoimchev
                         </a>
@@ -100,7 +102,7 @@ export default function Contact({visible}: ContactProps) {
                         <a
                             href="https://linkedin.com/in/zstoimchev"
                             target="_blank"
-                            className="flex items-center gap-3 text-gray-400 hover:text-emerald-400 text-xl"
+                            className="text-lg md:text-xl flex items-center gap-3 text-gray-400 hover:text-emerald-400"
                         >
                             <LinkedIn size={20} className="inline"/> linkedin.com/in/zstoimchev
                         </a>
@@ -127,7 +129,7 @@ export default function Contact({visible}: ContactProps) {
                                 onChange={handleChange}
                                 placeholder="Name"
                                 required
-                                className="w-full bg-gray-800 border border-gray-700 rounded px-4 py-3 text-xl"
+                                className="text-md md:text-xl w-full bg-gray-800 border border-gray-700 rounded px-4 py-3"
                             />
 
                             <input
@@ -137,7 +139,7 @@ export default function Contact({visible}: ContactProps) {
                                 onChange={handleChange}
                                 placeholder="Email"
                                 required
-                                className="w-full bg-gray-800 border border-gray-700 rounded px-4 py-3 text-xl"
+                                className="text-md md:text-xl w-full bg-gray-800 border border-gray-700 rounded px-4 py-3"
                             />
 
                             <input
@@ -145,7 +147,7 @@ export default function Contact({visible}: ContactProps) {
                                 value={form.subject}
                                 onChange={handleChange}
                                 placeholder="Subject"
-                                className="w-full bg-gray-800 border border-gray-700 rounded px-4 py-3 text-xl"
+                                className="text-md md:text-xl w-full bg-gray-800 border border-gray-700 rounded px-4 py-3"
                             />
 
                             <textarea
@@ -155,13 +157,13 @@ export default function Contact({visible}: ContactProps) {
                                 placeholder="Message"
                                 rows={4}
                                 required
-                                className="w-full bg-gray-800 border border-gray-700 rounded px-4 py-3 text-xl"
+                                className="text-md md:text-xl w-full bg-gray-800 border border-gray-700 rounded px-4 py-3"
                             />
 
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full bg-emerald-600 hover:bg-emerald-700 py-3 rounded"
+                                className="text-lg md:text-xl w-full bg-emerald-600 hover:bg-emerald-700 py-3 rounded"
                             >
                                 {loading ? 'Sending...' : 'Send Message'}
                             </button>
