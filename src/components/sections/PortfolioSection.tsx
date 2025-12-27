@@ -66,10 +66,10 @@ export default function Portfolio({visible}: PortfolioProps) {
                         {projects.map(project => (
                             <div
                                 key={project.id}
-                                className="bg-gray-900 border border-gray-800 rounded-lg overflow-hidden hover:border-emerald-600 transition-all hover:scale-105 group"
+                                className="bg-gray-900 border border-gray-800 rounded-lg overflow-hidden hover:border-emerald-600 transition-all hover:scale-105 group flex flex-col"
                             >
                                 {/* Image */}
-                                <div className="h-48 bg-gray-800 overflow-hidden">
+                                <div className="h-48 bg-gray-800 overflow-hidden flex-shrink-0">
                                     {project.image_url ? (
                                         <Image
                                             src={project.image_url}
@@ -88,12 +88,12 @@ export default function Portfolio({visible}: PortfolioProps) {
                                 </div>
 
                                 {/* Content */}
-                                <div className="p-6">
+                                <div className="p-6 flex flex-col flex-grow">
                                     <h3 className="text-2xl md:text-3xl font-bold mb-2 text-emerald-400 group-hover:text-cyan-400 transition-colors">
                                         {project.name}
                                     </h3>
 
-                                    <p className="text-md md:text-xl text-gray-400 mb-4">
+                                    <p className="text-md md:text-xl text-gray-400 mb-4 flex-grow">
                                         {project.description}
                                     </p>
 
@@ -119,7 +119,7 @@ export default function Portfolio({visible}: PortfolioProps) {
                                             href={project.github_url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="text-lg md:text-xl text-emerald-400 hover:text-cyan-400 flex items-center gap-2"
+                                            className="text-lg md:text-xl text-emerald-400 hover:text-cyan-400 flex items-center gap-2 mt-auto"
                                         >
                                             <GitHub size={16} className="inline"/>
                                             View on GitHub →
