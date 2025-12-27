@@ -19,10 +19,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const name = Array.isArray(fields.name) ? fields.name[0] : fields.name
         const description = Array.isArray(fields.description) ? fields.description[0] : fields.description
         const github_url = Array.isArray(fields.github_url) ? fields.github_url[0] : fields.github_url
+        const technologies = Array.isArray(fields.technologies) ? fields.technologies[0] : fields.technologies
 
         const imageFile = Array.isArray(files.image) ? files.image[0] : files.image
 
-        if (!name || !description || !imageFile) {
+        if (!name || !description || !imageFile || !technologies) {
             return res.status(400).json({ error: 'Missing required fields' })
         }
 
@@ -44,6 +45,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     description,
                     github_url: github_url || "https://github.com/zstoimchev",
                     image_url: blob.url,
+                    technologies,
                 },
             })
 
