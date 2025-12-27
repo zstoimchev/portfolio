@@ -37,6 +37,6 @@ next-env.d.ts
 
 .idea
 
-/src/generated/prisma
+/src/server/generated/prisma
 
 .env

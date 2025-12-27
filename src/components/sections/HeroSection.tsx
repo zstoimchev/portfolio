@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
 import {ChevronDown, Download} from 'lucide-react';
+import Image from 'next/image';
 
 interface HeroProps {
     visible: boolean;
@@ -54,6 +55,21 @@ export default function Hero({visible, onNavigate}: HeroProps) {
             }`}
         >
             <div className="text-center max-w-5xl">
+                {/* Profile Image */}
+                <div className="mb-8 flex justify-center">
+                    <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-emerald-600 shadow-lg shadow-emerald-600/50 hover:scale-105 transition-transform">
+                        <Image
+                            src="/profile.jpg"
+                            // src="/1.jpeg"
+                            // src="/2.jpeg"
+                            alt="Zhivko Stoimchev"
+                            fill
+                            className="object-cover"
+                            priority
+                        />
+                    </div>
+                </div>
+
                 <p className="text-lg md:text-2xl text-emerald-400 mb-4 animate-pulse">
                     {'//'} Hello friend, glad you are here! My name is
                 </p>
