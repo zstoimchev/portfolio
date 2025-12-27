@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import formidable from 'formidable'
 import fs from 'fs'
 import { put } from '@vercel/blob'
-import { prisma } from '@/lib/prisma'
+import { prisma } from '@/server/lib/prisma'
 
 export const config = {
     api: { bodyParser: false },

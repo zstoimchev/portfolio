@@ -93,7 +93,7 @@ export default function Portfolio({visible}: PortfolioProps) {
                                         {project.name}
                                     </h3>
 
-                                    <p className="text-md md:text-xltext-gray-400 mb-4">
+                                    <p className="text-md md:text-xl text-gray-400 mb-4">
                                         {project.description}
                                     </p>
 
@@ -105,7 +105,7 @@ export default function Portfolio({visible}: PortfolioProps) {
                                                 .map((tech, idx) => (
                                                     <span
                                                         key={idx}
-                                                        className="text-xs px-2 py-1 bg-gray-800 text-emerald-400 rounded"
+                                                        className="text-xs md:text-lg px-2 py-1 bg-gray-800 text-emerald-400 rounded"
                                                     >
                                                     {tech.trim()}
                                                     </span>
