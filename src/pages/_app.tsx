@@ -7,7 +7,7 @@ export default function App({Component, pageProps}: AppProps) {
         <>
             <Head>
                 <title>Portfolio | Zhivko Stoimchev</title>
-                <link rel="icon" type="image/png" href="/favicon.png"/>
+                <link rel="icon" type="image/png" href="/logo.png"/>
             </Head>
             <Component {...pageProps} />
         </>
