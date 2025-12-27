@@ -1,6 +1,6 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
+  // output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -8,9 +8,10 @@ datasource db {
 }
 
 model Project {
-  id          Int    @id @default(autoincrement())
-  name        String
-  description String
-  image_url   String
-  github_url  String
+  id            Int    @id @default(autoincrement())
+  name          String
+  description   String
+  image_url     String
+  github_url    String
+  technologies  String?
 }

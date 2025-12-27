@@ -3,154 +3,45 @@
 @tailwind utilities;
 
 :root {
-    --background: #212121;
-    --foreground: #ededed;
+    --background: #08111a;
+    --foreground: #f5f5f5;
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --background: #212121;
-        --foreground: #ededed;
+        --background: #08111a;
+        --foreground: #f5f5f5;
     }
+}
+
+@font-face {
+    font-family: 'VT323';
+    src: url('fonts/VT323-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
 body {
     color: var(--foreground);
     background: var(--background);
-    font-family: Arial, Helvetica, sans-serif;
-
-    background-image: url("/background-nvim-numbering.png");
-    background-position: top left;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    font-family: 'VT323', monospace, sans-serif;
 }
 
-@layer utilities {
-    .text-balance {
-        text-wrap: balance;
-    }
+.blinking-cursor {
+    font-weight: 100;
+    font-size: 1.8em;
+    color: #00ffb0;
+    animation: blink 1s infinite;
 }
 
-body::before {
-    content: '';
-    position: fixed;
-    left: 4%;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background-color: #3c3c3c;
-}
-
-.content {
-    margin-left: calc(4% + 1px);
-    width: calc(96% - 1px);
-}
-
-@media (max-width: 950px) {
-    body::before {
-        left: 38px;
-    }
-
-    .content {
-        margin-left: 39px;
-        width: calc(100% - 38px);
-    }
-}
-
-.name-title{
-    /*text-8xl*/
-    font-size: 7vw;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.role-title{
-    /*text-6xl*/
-    font-size: 5vw;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.widdd{
-    max-width: 700px;
-}
-
-.custom-title-page {
-    font-size: 3vw;
-}
-
-/*complete animation from chatgpt*/
-.background {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-}
-
-.line, .curve {
-    position: absolute;
-    width: 2px;
-    height: 100vh;
-    background-color: rgba(97, 218, 251, 0.5);
-    animation: move 10s linear infinite;
-}
-
-.line:nth-child(1) {
-    left: 10%;
-    animation-delay: 0s;
-}
-
-.line:nth-child(2) {
-    left: 30%;
-    animation-delay: 2s;
-}
-
-.line:nth-child(3) {
-    left: 50%;
-    animation-delay: 4s;
-}
-
-.line:nth-child(4) {
-    left: 70%;
-    animation-delay: 6s;
-}
-
-.curve {
-    width: 100px;
-    height: 100px;
-    border: 2px solid rgba(97, 218, 251, 0.5);
-    border-radius: 50%;
-    animation: curveMove 15s linear infinite;
-}
-
-.curve:nth-child(5) {
-    top: 20%;
-    left: 20%;
-    animation-delay: 0s;
-}
-
-.curve:nth-child(6) {
-    top: 60%;
-    left: 60%;
-    animation-delay: 5s;
-}
-
-@keyframes move {
+@keyframes blink {
     0% {
-        transform: translateY(-100vh);
-    }
-    100% {
-        transform: translateY(100vh);
-    }
-}
-
-@keyframes curveMove {
-    0% {
-        transform: translate(-50vw, -50vh) rotate(0deg);
+        opacity: 1;
     }
     50% {
-        transform: translate(50vw, 50vh) rotate(180deg);
+        opacity: 0;
     }
     100% {
-        transform: translate(-50vw, -50vh) rotate(360deg);
+        opacity: 1;
     }
 }
