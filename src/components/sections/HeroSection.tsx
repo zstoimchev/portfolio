@@ -54,11 +54,11 @@ export default function Hero({visible, onNavigate}: HeroProps) {
             }`}
         >
             <div className="text-center max-w-5xl">
-                <p className="text-emerald-400 text-xl mb-4 animate-pulse">
+                <p className="text-lg md:text-2xl text-emerald-400 mb-4 animate-pulse">
                     {'//'} Hello friend, glad you are here! My name is
                 </p>
 
-                <h1 className="text-5xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent whitespace-nowrap">
+                <h1 className="text-4xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent whitespace-nowrap md:whitespace-nowrap text-center">
                     {'<'} Zhivko Stoimchev {'/>'}
                 </h1>
 
@@ -70,7 +70,7 @@ export default function Hero({visible, onNavigate}: HeroProps) {
                     {' "}'}
                 </p>
 
-                <p className="text-gray-500 max-w-2xl mx-auto mb-12 text-2xl">
+                <p className="text-xl md:text-2xl text-gray-500 max-w-2xl mx-auto mb-12">
                     Building resilient systems by day, probing their weaknesses by night.
                     From Windows machines to Kubernetes pods, I architect secure
                     infrastructure with a KISS principle mindset.
