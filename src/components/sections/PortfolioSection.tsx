@@ -1,6 +1,5 @@
-import {useEffect, useState} from 'react';
-import Image from 'next/image';
-import GitHub from '@/components/icons/GitHubIcon';
+import {useEffect, useState, useRef} from 'react';
+import {ChevronLeft, ChevronRight, Github} from 'lucide-react';
 
 interface Project {
     id: number;
@@ -18,8 +17,10 @@ interface PortfolioProps {
 export default function Portfolio({visible}: PortfolioProps) {
     const [projects, setProjects] = useState<Project[]>([]);
     const [loading, setLoading] = useState(true);
-    const [currentIndex, setCurrentIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
+    const [offset, setOffset] = useState(0);
+    const animationRef = useRef<number | null>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         fetch('/api/projects')
@@ -34,30 +35,69 @@ export default function Portfolio({visible}: PortfolioProps) {
             });
     }, []);
 
-    // Auto-advance carousel
+    // Create infinite loop array (3 copies for seamless infinite scroll)
+    const getInfiniteProjects = () => {
+        if (projects.length === 0) return [];
+        return [...projects, ...projects, ...projects];
+    };
+
+    const infiniteProjects = getInfiniteProjects();
+
+    // Auto-slide animation
     useEffect(() => {
         if (projects.length === 0 || isPaused) return;
 
-        const interval = setInterval(() => {
-            setCurrentIndex(prev => (prev + 1) % projects.length);
-        }, 4000); // Switch every 4 seconds
+        const slide = () => {
+            setOffset(prev => {
+                const newOffset = prev - 0.5; // Adjust speed here
+                const cardWidth = containerRef.current
+                    ? containerRef.current.offsetWidth / 3
+                    : 400;
+                const resetPoint = -cardWidth * projects.length;
 
-        return () => clearInterval(interval);
+                // Reset seamlessly when we've scrolled through one full set
+                if (newOffset <= resetPoint) {
+                    return 0;
+                }
+                return newOffset;
+            });
+            animationRef.current = requestAnimationFrame(slide);
+        };
+
+        animationRef.current = requestAnimationFrame(slide);
+        return () => {
+            if (animationRef.current) {
+                cancelAnimationFrame(animationRef.current);
+            }
+        };
     }, [projects.length, isPaused]);
 
-    // Get visible projects (3 at a time, wrapping around)
-    const getVisibleProjects = () => {
-        if (projects.length === 0) return [];
-
-        const visible = [];
-        for (let i = 0; i < 3; i++) {
-            const index = (currentIndex + i) % projects.length;
-            visible.push({...projects[index], displayIndex: i});
-        }
-        return visible;
+    const handleNext = () => {
+        if (!containerRef.current) return;
+        const cardWidth = containerRef.current.offsetWidth / 3;
+        setOffset(prev => {
+            const newOffset = prev - cardWidth;
+            const resetPoint = -cardWidth * projects.length;
+            return newOffset <= resetPoint ? 0 : newOffset;
+        });
     };
 
-    const visibleProjects = getVisibleProjects();
+    const handlePrev = () => {
+        if (!containerRef.current) return;
+        const cardWidth = containerRef.current.offsetWidth / 3;
+        setOffset(prev => {
+            const newOffset = prev + cardWidth;
+            const resetPoint = -cardWidth * projects.length;
+            return newOffset > 0 ? resetPoint : newOffset;
+        });
+    };
+
+    const getCurrentIndex = () => {
+        if (!containerRef.current || projects.length === 0) return 0;
+        const cardWidth = containerRef.current.offsetWidth / 3;
+        const index = Math.abs(Math.round(offset / cardWidth)) % projects.length;
+        return index;
+    };
 
     return (
         <section
@@ -71,111 +111,130 @@ export default function Portfolio({visible}: PortfolioProps) {
                     {'>'}_featured_projects
                 </h2>
 
-                {/* Loading */}
                 {loading && (
                     <div className="text-center text-gray-400">
-                        <div
-                            className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-400 mb-4"/>
+                        <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-400 mb-4"/>
                         <p>Loading projects...</p>
                     </div>
                 )}
 
-                {/* Empty */}
                 {!loading && projects.length === 0 && (
                     <div className="text-center text-gray-400">
                         <p>No projects found.</p>
                     </div>
                 )}
 
-                {/* Projects Carousel */}
                 {!loading && projects.length > 0 && (
                     <div
                         className="relative"
                         onMouseEnter={() => setIsPaused(true)}
                         onMouseLeave={() => setIsPaused(false)}
                     >
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {visibleProjects.map((project, idx) => (
-                                <div
-                                    key={`${project.id}-${currentIndex}-${idx}`}
-                                    className="animate-fadeIn"
+                        {/* Navigation Buttons - visible on hover */}
+                        {!isPaused && (
+                            <>
+                                <button
+                                    onClick={handlePrev}
+                                    className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-16 bg-gray-900/90 hover:bg-emerald-600 p-3 md:p-4 rounded-full transition-all border border-gray-800 hover:border-emerald-600 z-10"
+                                    aria-label="Previous projects"
                                 >
-                                    <div className="bg-gray-900 border border-gray-800 rounded-lg overflow-hidden hover:border-emerald-600 transition-all hover:scale-105 group flex flex-col h-full">
-                                        {/* Image */}
-                                        <div className="h-48 bg-gray-800 overflow-hidden flex-shrink-0">
-                                            {project.image_url ? (
-                                                <Image
-                                                    src={project.image_url}
-                                                    alt={project.name}
-                                                    width={500}
-                                                    height={300}
-                                                    className="w-full h-full object-cover"
-                                                    style={{objectFit: 'cover'}}
-                                                />
-                                            ) : (
-                                                <div
-                                                    className="w-full h-full bg-gradient-to-br from-emerald-900/50 to-cyan-900/50 flex items-center justify-center">
-                                                    <span className="text-6xl opacity-20">{'</>'}</span>
-                                                </div>
-                                            )}
-                                        </div>
+                                    <ChevronLeft size={24} className="text-emerald-400"/>
+                                </button>
 
-                                        {/* Content */}
-                                        <div className="p-6 flex flex-col flex-grow">
-                                            <h3 className="text-2xl md:text-3xl font-bold mb-2 text-emerald-400 group-hover:text-cyan-400 transition-colors">
-                                                {project.name}
-                                            </h3>
+                                <button
+                                    onClick={handleNext}
+                                    className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-16 bg-gray-900/90 hover:bg-emerald-600 p-3 md:p-4 rounded-full transition-all border border-gray-800 hover:border-emerald-600 z-10"
+                                    aria-label="Next projects"
+                                >
+                                    <ChevronRight size={24} className="text-emerald-400"/>
+                                </button>
+                            </>
+                        )}
 
-                                            <p className="text-md md:text-xl text-gray-400 mb-4 flex-grow">
-                                                {project.description}
-                                            </p>
+                        {/* Carousel Container */}
+                        <div className="overflow-hidden" ref={containerRef}>
+                            <div
+                                className="flex gap-6"
+                                style={{
+                                    transform: `translateX(${offset}px)`,
+                                    transition: isPaused ? 'transform 0.5s ease-out' : 'none'
+                                }}
+                            >
+                                {infiniteProjects.map((project, idx) => (
+                                    <div
+                                        key={`${project.id}-${idx}`}
+                                        className="flex-shrink-0"
+                                        style={{width: 'calc(33.333% - 1rem)'}}
+                                    >
+                                        <div className="bg-gray-900 border border-gray-800 rounded-lg overflow-hidden hover:border-emerald-600 transition-all hover:scale-105 group flex flex-col h-full">
+                                            {/* Image */}
+                                            <div className="h-48 bg-gray-800 overflow-hidden flex-shrink-0">
+                                                {project.image_url ? (
+                                                    <img
+                                                        src={project.image_url}
+                                                        alt={project.name}
+                                                        className="w-full h-full object-cover"
+                                                    />
+                                                ) : (
+                                                    <div className="w-full h-full bg-gradient-to-br from-emerald-900/50 to-cyan-900/50 flex items-center justify-center">
+                                                        <span className="text-6xl opacity-20">{'</>'}</span>
+                                                    </div>
+                                                )}
+                                            </div>
 
-                                            {/* Technologies */}
-                                            {project.technologies && (
-                                                <div className="flex flex-wrap gap-2 mb-4">
-                                                    {project.technologies
-                                                        .split(',')
-                                                        .map((tech, techIdx) => (
-                                                            <span
-                                                                key={techIdx}
-                                                                className="text-xs md:text-lg px-2 py-1 bg-gray-800 text-emerald-400 rounded"
-                                                            >
-                                                                {tech.trim()}
-                                                            </span>
-                                                        ))}
-                                                </div>
-                                            )}
+                                            {/* Content */}
+                                            <div className="p-6 flex flex-col flex-grow">
+                                                <h3 className="text-xl md:text-2xl font-bold mb-2 text-emerald-400 group-hover:text-cyan-400 transition-colors">
+                                                    {project.name}
+                                                </h3>
 
-                                            {/* GitHub */}
-                                            {project.github_url && (
-                                                <a
-                                                    href={project.github_url}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="text-lg md:text-xl text-emerald-400 hover:text-cyan-400 flex items-center gap-2 mt-auto"
-                                                >
-                                                    <GitHub size={16} className="inline"/>
-                                                    View on GitHub →
-                                                </a>
-                                            )}
+                                                <p className="text-sm md:text-base text-gray-400 mb-4 flex-grow">
+                                                    {project.description}
+                                                </p>
+
+                                                {project.technologies && (
+                                                    <div className="flex flex-wrap gap-2 mb-4">
+                                                        {project.technologies
+                                                            .split(',')
+                                                            .map((tech, techIdx) => (
+                                                                <span
+                                                                    key={techIdx}
+                                                                    className="text-xs px-2 py-1 bg-gray-800 text-emerald-400 rounded"
+                                                                >
+                                                                    {tech.trim()}
+                                                                </span>
+                                                            ))}
+                                                    </div>
+                                                )}
+
+                                                {project.github_url && (
+                                                    <a
+                                                        href={project.github_url}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="text-sm md:text-base text-emerald-400 hover:text-cyan-400 flex items-center gap-2 mt-auto"
+                                                    >
+                                                        <Github size={16} className="inline"/>
+                                                        View on GitHub →
+                                                    </a>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
 
                         {/* Progress Indicators */}
                         <div className="flex justify-center gap-2 mt-8">
                             {projects.map((_, index) => (
-                                <button
+                                <div
                                     key={index}
-                                    onClick={() => setCurrentIndex(index)}
                                     className={`h-2 rounded-full transition-all ${
-                                        index === currentIndex
+                                        index === getCurrentIndex()
                                             ? 'bg-emerald-400 w-8'
-                                            : 'bg-gray-600 hover:bg-gray-500 w-2'
+                                            : 'bg-gray-600 w-2'
                                     }`}
-                                    aria-label={`Go to project ${index + 1}`}
                                 />
                             ))}
                         </div>
@@ -189,23 +248,6 @@ export default function Portfolio({visible}: PortfolioProps) {
                     </div>
                 )}
             </div>
-
-            <style jsx>{`
-                @keyframes fadeIn {
-                    from {
-                        opacity: 0;
-                        transform: translateX(20px);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: translateX(0);
-                    }
-                }
-
-                .animate-fadeIn {
-                    animation: fadeIn 0.5s ease-out;
-                }
-            `}</style>
         </section>
     );
 }
