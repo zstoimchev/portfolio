@@ -43,34 +43,16 @@ export default function Portfolio({visible}: PortfolioProps) {
 
     const infiniteProjects = getInfiniteProjects();
 
-    // Auto-slide animation
+    // Auto-slide animation - move one project every 3 seconds
     useEffect(() => {
         if (projects.length === 0 || isPaused) return;
 
-        const slide = () => {
-            setOffset(prev => {
-                const newOffset = prev - 0.5; // Adjust speed here
-                const cardWidth = containerRef.current
-                    ? containerRef.current.offsetWidth / 3
-                    : 400;
-                const resetPoint = -cardWidth * projects.length;
+        const interval = setInterval(() => {
+            handleNext();
+        }, 3000); // Move every 3 seconds
 
-                // Reset seamlessly when we've scrolled through one full set
-                if (newOffset <= resetPoint) {
-                    return 0;
-                }
-                return newOffset;
-            });
-            animationRef.current = requestAnimationFrame(slide);
-        };
-
-        animationRef.current = requestAnimationFrame(slide);
-        return () => {
-            if (animationRef.current) {
-                cancelAnimationFrame(animationRef.current);
-            }
-        };
-    }, [projects.length, isPaused]);
+        return () => clearInterval(interval);
+    }, [projects.length, isPaused, offset]);
 
     const handleNext = () => {
         if (!containerRef.current) return;
@@ -134,6 +116,8 @@ export default function Portfolio({visible}: PortfolioProps) {
                         {!isPaused && (
                             <>
                                 <button
+                                    onMouseEnter={() => setIsPaused(false)}
+                                    onMouseLeave={() => setIsPaused(true)}
                                     onClick={handlePrev}
                                     className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-16 bg-gray-900/90 hover:bg-emerald-600 p-3 md:p-4 rounded-full transition-all border border-gray-800 hover:border-emerald-600 z-10"
                                     aria-label="Previous projects"
@@ -142,6 +126,8 @@ export default function Portfolio({visible}: PortfolioProps) {
                                 </button>
 
                                 <button
+                                    onMouseEnter={() => setIsPaused(false)}
+                                    onMouseLeave={() => setIsPaused(true)}
                                     onClick={handleNext}
                                     className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-16 bg-gray-900/90 hover:bg-emerald-600 p-3 md:p-4 rounded-full transition-all border border-gray-800 hover:border-emerald-600 z-10"
                                     aria-label="Next projects"
@@ -157,7 +143,7 @@ export default function Portfolio({visible}: PortfolioProps) {
                                 className="flex gap-6"
                                 style={{
                                     transform: `translateX(${offset}px)`,
-                                    transition: isPaused ? 'transform 0.5s ease-out' : 'none'
+                                    transition: 'transform 0.8s ease-in-out'
                                 }}
                             >
                                 {infiniteProjects.map((project, idx) => (
