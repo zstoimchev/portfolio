@@ -1,5 +1,5 @@
-import {useEffect, useState, useRef} from 'react';
-import {ChevronLeft, ChevronRight, Github} from 'lucide-react';
+import { useEffect, useState, useRef } from 'react';
+import { ChevronLeft, ChevronRight, Github } from 'lucide-react';
 
 interface Project {
     id: number;
@@ -14,14 +14,18 @@ interface PortfolioProps {
     visible: boolean;
 }
 
-export default function Portfolio({visible}: PortfolioProps) {
+export default function Portfolio({ visible }: PortfolioProps) {
     const [projects, setProjects] = useState<Project[]>([]);
     const [loading, setLoading] = useState(true);
     const [isPaused, setIsPaused] = useState(false);
     const [offset, setOffset] = useState(0);
-    const animationRef = useRef<number | null>(null);
+    const [enableTransition, setEnableTransition] = useState(true);
+
     const containerRef = useRef<HTMLDivElement>(null);
 
+    /* =========================
+       FETCH PROJECTS
+    ========================= */
     useEffect(() => {
         fetch('/api/projects')
             .then(res => res.json())
@@ -35,52 +39,97 @@ export default function Portfolio({visible}: PortfolioProps) {
             });
     }, []);
 
-    // Create infinite loop array (3 copies for seamless infinite scroll)
-    const getInfiniteProjects = () => {
-        if (projects.length === 0) return [];
-        return [...projects, ...projects, ...projects];
-    };
+    /* =========================
+       DUPLICATE PROJECTS
+    ========================= */
+    const infiniteProjects =
+        projects.length > 0
+            ? [...projects, ...projects, ...projects]
+            : [];
 
-    const infiniteProjects = getInfiniteProjects();
+    /* =========================
+       START IN MIDDLE COPY
+    ========================= */
+    useEffect(() => {
+        if (!containerRef.current || projects.length === 0) return;
 
-    // Auto-slide animation - move one project every 3 seconds
+        const cardWidth = containerRef.current.offsetWidth / 3;
+        setEnableTransition(false);
+        setOffset(-cardWidth * projects.length);
+    }, [projects.length]);
+
+    /* =========================
+       AUTO SLIDE
+    ========================= */
     useEffect(() => {
         if (projects.length === 0 || isPaused) return;
 
         const interval = setInterval(() => {
             handleNext();
-        }, 3000); // Move every 3 seconds
+        }, 3000);
 
         return () => clearInterval(interval);
-    }, [projects.length, isPaused, offset]);
+    }, [projects.length, isPaused]);
 
+    /* =========================
+       HANDLERS
+    ========================= */
     const handleNext = () => {
         if (!containerRef.current) return;
+
         const cardWidth = containerRef.current.offsetWidth / 3;
-        setOffset(prev => {
-            const newOffset = prev - cardWidth;
-            const resetPoint = -cardWidth * projects.length;
-            return newOffset <= resetPoint ? 0 : newOffset;
-        });
+        setEnableTransition(true);
+        setOffset(prev => prev - cardWidth);
     };
 
     const handlePrev = () => {
         if (!containerRef.current) return;
+
         const cardWidth = containerRef.current.offsetWidth / 3;
-        setOffset(prev => {
-            const newOffset = prev + cardWidth;
-            const resetPoint = -cardWidth * projects.length;
-            return newOffset > 0 ? resetPoint : newOffset;
-        });
+        setEnableTransition(true);
+        setOffset(prev => prev + cardWidth);
     };
 
+    /* =========================
+       SILENT RESET
+    ========================= */
+    useEffect(() => {
+        if (!containerRef.current || projects.length === 0) return;
+
+        const cardWidth = containerRef.current.offsetWidth / 3;
+        const maxOffset = -cardWidth * projects.length * 2;
+
+        if (offset <= maxOffset) {
+            setTimeout(() => {
+                setEnableTransition(false);
+                setOffset(-cardWidth * projects.length);
+            }, 800);
+        }
+
+        if (offset >= 0) {
+            setTimeout(() => {
+                setEnableTransition(false);
+                setOffset(-cardWidth * projects.length);
+            }, 800);
+        }
+    }, [offset, projects.length]);
+
+    /* =========================
+       CURRENT INDEX
+    ========================= */
     const getCurrentIndex = () => {
         if (!containerRef.current || projects.length === 0) return 0;
+
         const cardWidth = containerRef.current.offsetWidth / 3;
-        const index = Math.abs(Math.round(offset / cardWidth)) % projects.length;
-        return index;
+        const relativeOffset =
+            Math.abs(offset + cardWidth * projects.length);
+
+        return Math.round(relativeOffset / cardWidth) % projects.length;
     };
 
+    /* =========================
+       RENDER
+    ========================= */
     return (
         <section
             id="portfolio"
@@ -95,14 +144,8 @@ export default function Portfolio({visible}: PortfolioProps) {
 
                 {loading && (
                     <div className="text-center text-gray-400">
-                        <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-400 mb-4"/>
+                        <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-400 mb-4" />
                         <p>Loading projects...</p>
-                    </div>
-                )}
-
-                {!loading && projects.length === 0 && (
-                    <div className="text-center text-gray-400">
-                        <p>No projects found.</p>
                     </div>
                 )}
 
@@ -112,49 +155,40 @@ export default function Portfolio({visible}: PortfolioProps) {
                         onMouseEnter={() => setIsPaused(true)}
                         onMouseLeave={() => setIsPaused(false)}
                     >
-                        {/* Navigation Buttons - visible on hover */}
-                        {!isPaused && (
-                            <>
-                                <button
-                                    onMouseEnter={() => setIsPaused(false)}
-                                    onMouseLeave={() => setIsPaused(true)}
-                                    onClick={handlePrev}
-                                    className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-16 bg-gray-900/90 hover:bg-emerald-600 p-3 md:p-4 rounded-full transition-all border border-gray-800 hover:border-emerald-600 z-10"
-                                    aria-label="Previous projects"
-                                >
-                                    <ChevronLeft size={24} className="text-emerald-400"/>
-                                </button>
+                        {/* NAV BUTTONS */}
+                        <button
+                            onClick={handlePrev}
+                            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 bg-gray-900/90 hover:bg-emerald-600 p-4 rounded-full border border-gray-800 z-10"
+                        >
+                            <ChevronLeft className="text-emerald-400" />
+                        </button>
 
-                                <button
-                                    onMouseEnter={() => setIsPaused(false)}
-                                    onMouseLeave={() => setIsPaused(true)}
-                                    onClick={handleNext}
-                                    className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-16 bg-gray-900/90 hover:bg-emerald-600 p-3 md:p-4 rounded-full transition-all border border-gray-800 hover:border-emerald-600 z-10"
-                                    aria-label="Next projects"
-                                >
-                                    <ChevronRight size={24} className="text-emerald-400"/>
-                                </button>
-                            </>
-                        )}
+                        <button
+                            onClick={handleNext}
+                            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 bg-gray-900/90 hover:bg-emerald-600 p-4 rounded-full border border-gray-800 z-10"
+                        >
+                            <ChevronRight className="text-emerald-400" />
+                        </button>
 
-                        {/* Carousel Container */}
+                        {/* CAROUSEL */}
                         <div className="overflow-hidden" ref={containerRef}>
                             <div
                                 className="flex gap-6"
                                 style={{
                                     transform: `translateX(${offset}px)`,
-                                    transition: 'transform 0.8s ease-in-out'
+                                    transition: enableTransition
+                                        ? 'transform 0.8s ease-in-out'
+                                        : 'none'
                                 }}
                             >
                                 {infiniteProjects.map((project, idx) => (
                                     <div
                                         key={`${project.id}-${idx}`}
                                         className="flex-shrink-0"
-                                        style={{width: 'calc(33.333% - 1rem)'}}
+                                        style={{ width: 'calc(33.333% - 1rem)' }}
                                     >
-                                        <div className="bg-gray-900 border border-gray-800 rounded-lg overflow-hidden hover:border-emerald-600 transition-all hover:scale-105 group flex flex-col h-full">
-                                            {/* Image */}
-                                            <div className="h-48 bg-gray-800 overflow-hidden flex-shrink-0">
+                                        <div className="bg-gray-900 border border-gray-800 rounded-lg overflow-hidden hover:border-emerald-600 transition-all hover:scale-105 h-full">
+                                            <div className="h-48 bg-gray-800">
                                                 {project.image_url ? (
                                                     <img
                                                         src={project.image_url}
@@ -162,19 +196,18 @@ export default function Portfolio({visible}: PortfolioProps) {
                                                         className="w-full h-full object-cover"
                                                     />
                                                 ) : (
-                                                    <div className="w-full h-full bg-gradient-to-br from-emerald-900/50 to-cyan-900/50 flex items-center justify-center">
-                                                        <span className="text-6xl opacity-20">{'</>'}</span>
+                                                    <div className="w-full h-full flex items-center justify-center opacity-20">
+                                                        {'</>'}
                                                     </div>
                                                 )}
                                             </div>
 
-                                            {/* Content */}
-                                            <div className="p-6 flex flex-col flex-grow">
-                                                <h3 className="text-xl md:text-2xl font-bold mb-2 text-emerald-400 group-hover:text-cyan-400 transition-colors">
+                                            <div className="p-6 flex flex-col h-full">
+                                                <h3 className="text-xl font-bold text-emerald-400 mb-2">
                                                     {project.name}
                                                 </h3>
 
-                                                <p className="text-sm md:text-base text-gray-400 mb-4 flex-grow">
+                                                <p className="text-gray-400 flex-grow mb-4">
                                                     {project.description}
                                                 </p>
 
@@ -182,10 +215,10 @@ export default function Portfolio({visible}: PortfolioProps) {
                                                     <div className="flex flex-wrap gap-2 mb-4">
                                                         {project.technologies
                                                             .split(',')
-                                                            .map((tech, techIdx) => (
+                                                            .map((tech, i) => (
                                                                 <span
-                                                                    key={techIdx}
-                                                                    className="text-xs px-2 py-1 bg-gray-800 text-emerald-400 rounded"
+                                                                    key={i}
+                                                                    className="text-xs bg-gray-800 px-2 py-1 rounded text-emerald-400"
                                                                 >
                                                                     {tech.trim()}
                                                                 </span>
@@ -198,9 +231,9 @@ export default function Portfolio({visible}: PortfolioProps) {
                                                         href={project.github_url}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="text-sm md:text-base text-emerald-400 hover:text-cyan-400 flex items-center gap-2 mt-auto"
+                                                        className="flex items-center gap-2 text-emerald-400 hover:text-cyan-400"
                                                     >
-                                                        <Github size={16} className="inline"/>
+                                                        <Github size={16} />
                                                         View on GitHub →
                                                     </a>
                                                 )}
@@ -211,26 +244,19 @@ export default function Portfolio({visible}: PortfolioProps) {
                             </div>
                         </div>
 
-                        {/* Progress Indicators */}
+                        {/* INDICATORS */}
                         <div className="flex justify-center gap-2 mt-8">
-                            {projects.map((_, index) => (
+                            {projects.map((_, i) => (
                                 <div
-                                    key={index}
+                                    key={i}
                                     className={`h-2 rounded-full transition-all ${
-                                        index === getCurrentIndex()
+                                        i === getCurrentIndex()
                                             ? 'bg-emerald-400 w-8'
                                             : 'bg-gray-600 w-2'
                                     }`}
                                 />
                             ))}
                         </div>
-
-                        {/* Pause Indicator */}
-                        {isPaused && (
-                            <div className="absolute top-4 right-4 bg-gray-900/80 px-3 py-1 rounded-full text-emerald-400 text-sm border border-emerald-600">
-                                Paused
-                            </div>
-                        )}
                     </div>
                 )}
             </div>
