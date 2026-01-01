@@ -6,13 +6,22 @@ The entire project — including design, architecture, and code — is **my own 
 
 Projects are fetched dynamically from my MySQL database and displayed through a custom-built, animated portfolio carousel, making the content easy to maintain and update.
 
-⚠️ **Important:** This project is **not a template**. The design, code, data structure, and deployment are my own work and are **not intended for reuse or redeployment by others** without my explicit permission.
+> ⚠️ **Important:** This project is **not a template**. The design, code, data structure, and deployment are my own work and are **not intended for reuse or redeployment by others** without my explicit permission.
 
 
 ## 🚀 Live Website
 - **Production:** https://zstoimchev.com
 - **Hosting:** Vercel
 - **Custom Domain & DNS:** Cloudflare 
+
+
+## 📸 Screenshots
+
+> Preview of the live portfolio website
+
+![Homepage](./screenshots/homepage.png)
+
+[//]: # (![Portfolio Section]&#40;./screenshots/portfolio.png&#41;)
 
 
 ## ✨ Features
@@ -78,7 +87,7 @@ $ npm run dev
 
 Open http://localhost:3000 in your browser.
 
-⚠️ Note: The project relies on a private MySQL database.
+> ⚠️ Note: The project relies on a private MySQL database.
 Without proper environment variables and database access, project data will not load locally.
 
 ### Environment Variables
@@ -117,11 +126,12 @@ If you are interested in collaboration or have questions, feel free to reach out
 
 ## 📬 Contact
 
-If you want to get in touch regarding this project or potential collaboration, please reach out via my GitHub profile or personal website.
+If you want to get in touch regarding this project or potential collaboration, feel free to reach out:
 
-- Email: [zstoimchev@gmail.com](mailto:zstoimchev@gmail.com)
-- LinkedIn: https://www.linkedin.com/in/zhivko-stoimchev/
-- GitHub: https://github.com/zstoimchev
+- 📧 Email: [zstoimchev@gmail.com](mailto:zstoimchev@gmail.com)
+- 💼 LinkedIn: https://www.linkedin.com/in/zhivko-stoimchev/
+- 🧑‍💻 GitHub: https://github.com/zstoimchev
+
 
 ---
 
